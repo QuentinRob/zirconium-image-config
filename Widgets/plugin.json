@@ -1,0 +1,16 @@
+{
+    "id": "openfortivpn",
+    "name": "OpenFortiVPN",
+    "description": "Manage OpenFortiVPN connection and run custom commands",
+    "version": "1.0.0",
+    "author": "Antigravity",
+    "type": "widget",
+    "capabilities": ["dankbar-widget", "control-center"],
+    "component": "./VpnWidget.qml",
+    "icon": "vpn_lock",
+    "settings": "./VpnSettings.qml",
+    "permissions": [
+        "settings_read",
+        "settings_write"
+    ]
+}
