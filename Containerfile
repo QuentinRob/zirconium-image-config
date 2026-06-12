@@ -79,8 +79,9 @@ RUN mkdir -p /usr/share/applications && \
 # Install DankBar widget (openfortivpn)
 COPY Widgets/ /etc/xdg/quickshell/dms-plugins/openfortivpn/
 
-RUN dnf config-manager addrepo --from-repofile=https://cli.github.com/packages/rpm/gh-cli.repo
-RUN dnf install -y glab gh && dnf clean all
+RUN dnf config-manager addrepo --from-repofile=https://cli.github.com/packages/rpm/gh-cli.repo && \
+    dnf config-manager addrepo --from-repofile=https://rpm.releases.hashicorp.com/fedora/hashicorp.repo
+RUN dnf install -y glab gh terraform && dnf clean all
 
 # Install OpenAI Codex CLI and Zed ACP adapter
 RUN HOME=/tmp npm install -g --prefix=/usr @openai/codex @zed-industries/codex-acp
