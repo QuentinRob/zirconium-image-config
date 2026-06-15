@@ -34,7 +34,8 @@ This repository contains the `Containerfile` configuration to build a custom, se
 
 ### 🛠️ Developer Ecosystem & AI IDEs
 - **Core Package Toolkit**: `git`, `vim`, `firefox`, `nodejs`/`npm`, `jq`, `curl`, and `pandoc`.
-- **Kubernetes & Cloud Platforms**: Fully loaded with `kubectl`, `helm`, `azure-cli`, and `kubelogin`.
+- **Infrastructure & Cloud Platforms**: Fully loaded with `kubectl`, `helm`, `azure-cli`, `kubelogin`, and **Terraform**.
+- **Terminal Workspace & Shells**: Pre-installed **Zellij** terminal multiplexer.
 - **AI-Assisted Coding**:
   - Includes **Antigravity IDE** (AI-powered agentic development platform) with a preconfigured system-wide launcher.
   - Includes **OpenAI Codex CLI** and the **Zed Editor Codex ACP** adapter.

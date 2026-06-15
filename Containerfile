@@ -102,5 +102,5 @@ RUN echo -e "[kubernetes]\nname=Kubernetes\nbaseurl=https://pkgs.k8s.io/core:/st
 # Copy system-wide fish prompt configuration and helper functions
 COPY fish_prompt.fish fish_jj_prompt.fish k8s_resources.fish /usr/share/fish/vendor_functions.d/
 
-
-
+# Install Zellij
+RUN curl -L https://github.com/zellij-org/zellij/releases/latest/download/zellij-x86_64-unknown-linux-musl.tar.gz | tar -xz -C /usr/bin
