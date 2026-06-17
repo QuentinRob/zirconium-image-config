@@ -49,7 +49,7 @@ RUN usermod -s /usr/bin/fish root
 RUN sed -i 's|^SHELL=.*|SHELL=/usr/bin/fish|' /etc/default/useradd
 
 # Ensure all users are part of the vboxsf group for shared folder mounting
-RUN groupadd -r vboxsf && \
+RUN (getent group vboxsf >/dev/null || groupadd -r vboxsf) && \
     getent passwd | cut -d: -f1 | while read -r user; do usermod -aG vboxsf "$user" 2>/dev/null || true; done && \
     mkdir -p /etc/shadow-maint/useradd-post.d && \
     ( \
