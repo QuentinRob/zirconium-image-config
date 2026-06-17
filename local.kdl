@@ -1,0 +1,4 @@
+binds {
+    Mod+F { spawn "python3" "/usr/bin/niri-macos-maximize.py"; }
+    Mod+Ctrl+F { spawn "python3" "/usr/bin/niri-macos-maximize.py"; }
+}

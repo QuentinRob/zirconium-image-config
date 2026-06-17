@@ -90,6 +90,10 @@ RUN mkdir -p /usr/share/applications && \
 # Install DankBar widget (openfortivpn) and system-wide default settings
 COPY Widgets/ /etc/xdg/quickshell/dms-plugins/openfortivpn/
 COPY settings.json /usr/share/zirconium/zdots/dot_config/DankMaterialShell/settings.json
+COPY niri-macos-maximize.py /usr/bin/niri-macos-maximize.py
+RUN chmod +x /usr/bin/niri-macos-maximize.py
+COPY local.kdl /usr/share/zirconium/zdots/dot_config/niri/local.kdl
+
 
 RUN dnf config-manager addrepo --from-repofile=https://cli.github.com/packages/rpm/gh-cli.repo && \
     dnf config-manager addrepo --from-repofile=https://rpm.releases.hashicorp.com/fedora/hashicorp.repo
