@@ -66,6 +66,34 @@ function fish_prompt --description 'Write out the prompt'
         set -a segments $vcs
     end
 
+    # Kubernetes segment
+    set -l k8s_segment ""
+    if command -sq kubectl
+        set -l kube_context (kubectl config current-context 2>/dev/null)
+        if test -n "$kube_context"
+            set -l kube_namespace (kubectl config view --minify --output 'jsonpath={..namespace}' 2>/dev/null)
+            if test -z "$kube_namespace"
+                set kube_namespace "default"
+            end
+            
+            set -l kube_server (kubectl config view --minify --output 'jsonpath={..server}' 2>/dev/null)
+            set -l reachable_icon "🔴"
+            if test -n "$kube_server"
+                # Check connection status using a very short timeout (200ms) to keep prompt snappy
+                curl -k -s -I -m 0.2 --connect-timeout 0.2 $kube_server >/dev/null 2>&1
+                set -l curl_res $status
+                if not contains $curl_res 6 7 28
+                    set reachable_icon "🟢"
+                end
+            end
+            
+            set -l color_k8s (set_color brcyan)
+            set -l color_normal (set_color normal)
+            set k8s_segment "⎈ $color_k8s$kube_context$color_normal/$kube_namespace $reachable_icon"
+            set -a segments (string trim $k8s_segment)
+        end
+    end
+
     # 4. VPN segment (if active)
     if test -n "$vpn_segment"
         set -a segments (string trim $vpn_segment)
