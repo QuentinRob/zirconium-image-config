@@ -46,9 +46,12 @@ This repository contains the `Containerfile` configuration to build a custom, se
 - **Custom Prompts**: Preloaded prompt configurations featuring Git & Jujutsu status tracking (`fish_prompt.fish`, `fish_jj_prompt.fish`).
 - **Kubernetes Integrations**: Native fish functions (`k8s_resources.fish`) to query cluster resources dynamically.
 
-### 🌐 Secure Remote Connectivity
+### 🌐 Secure Remote Connectivity & Desktop Customization
 - **OpenFortiVPN**: Pre-configured with elevated network capability permissions (`cap_net_admin`).
 - **DankBar Widget Integration**: OpenFortiVPN connection widget integrated for quickshell control.
+- **macOS 27 Top Bar Aesthetic**: Transparent, frosted top bar layout with clock on the right, centered apps launcher icon, and zero window gaps configured in `settings.json`.
+- **Font Rendering Optimizations**: Configured system-wide medium text weight (500), font scale (1.1), and native FreeType text rendering (resolving Qt rasterization pixelation) for maximum legibility.
+- **macOS-style Window Maximize**: Pressing `Mod+F` or `Mod+Ctrl+F` moves the focused window to a new dynamic workspace and maximizes it there. Unmaximizing/restoring the window returns it to its original workspace (with empty workspaces automatically cleaned up).
 
 ---
 
@@ -64,6 +67,9 @@ This repository contains the `Containerfile` configuration to build a custom, se
 ├── fish_prompt.fish           # Base prompt layout
 ├── fish_jj_prompt.fish        # Jujutsu-aware shell prompt functions
 ├── k8s_resources.fish         # Kubernetes helper functions for Fish
+├── settings.json              # Custom DankMaterialShell default settings
+├── niri-macos-maximize.py     # macOS-style maximize IPC python helper script
+├── local.kdl                  # Niri keybinding overrides for macOS maximize script
 └── README.md                  # This documentation
 ```
 
