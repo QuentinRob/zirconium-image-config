@@ -76,20 +76,25 @@ function fish_prompt --description 'Write out the prompt'
                 set kube_namespace "default"
             end
             
-            set -l kube_server (kubectl config view --minify --output 'jsonpath={..server}' 2>/dev/null)
-            set -l reachable_icon "🔴"
-            if test -n "$kube_server"
-                # Check connection status using a very short timeout (200ms) to keep prompt snappy
-                curl -k -s -I -m 0.2 --connect-timeout 0.2 $kube_server >/dev/null 2>&1
-                set -l curl_res $status
-                if not contains $curl_res 6 7 28
-                    set reachable_icon "🟢"
-                end
+            # Shorten the context/cluster name if it's too long or contains cloud prefixes
+            if string match -q "*/*" $kube_context
+                set kube_context (string split -r -m 1 "/" $kube_context)[-1]
+            end
+            if string match -q "*_*" $kube_context
+                set kube_context (string split -r -m 1 "_" $kube_context)[-1]
+            end
+            if string match -q "*:*" $kube_context
+                set kube_context (string split -r -m 1 ":" $kube_context)[-1]
+            end
+            
+            # Truncate to a max length of 15 characters
+            if test (string length $kube_context) -gt 15
+                set kube_context (string sub -l 12 $kube_context)"..."
             end
             
             set -l color_k8s (set_color brcyan)
             set -l color_normal (set_color normal)
-            set k8s_segment "⎈ $color_k8s$kube_context$color_normal/$kube_namespace $reachable_icon"
+            set k8s_segment "☸ $color_k8s$kube_context$color_normal/$kube_namespace"
             set -a segments (string trim $k8s_segment)
         end
     end
