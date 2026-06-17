@@ -1,4 +1,11 @@
 function fish_prompt --description 'Write out the prompt'
+    # Print a blank line before the prompt, except on the very first render or after clear
+    if set -q _fish_prompt_initialized
+        echo ""
+    else
+        set -g _fish_prompt_initialized true
+    end
+
     set -l last_pipestatus $pipestatus
     set -lx __fish_last_status $status # Export for __fish_print_pipestatus.
     set -l normal (set_color --reset)
@@ -122,3 +129,9 @@ function fish_prompt --description 'Write out the prompt'
     echo ""
     echo -n -s $suffix " "
 end
+
+function clear --description 'Clear the terminal and reset prompt initialized status'
+    set -e _fish_prompt_initialized
+    command clear
+end
+
