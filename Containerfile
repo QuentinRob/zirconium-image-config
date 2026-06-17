@@ -105,7 +105,8 @@ RUN HOME=/tmp npm install -g --prefix=/usr @openai/codex @zed-industries/codex-a
 
 # Install Kubernetes tools, Azure CLI, Pandoc, and Azure CLI extensions
 RUN echo -e "[kubernetes]\nname=Kubernetes\nbaseurl=https://pkgs.k8s.io/core:/stable:/v1.31/rpm/\nenabled=1\ngpgcheck=1\ngpgkey=https://pkgs.k8s.io/core:/stable:/v1.31/rpm/repodata/repomd.xml.key" > /etc/yum.repos.d/kubernetes.repo && \
-    dnf install -y azure-cli kubectl helm pandoc gcc python3-devel python3-pip libsodium-devel && \
+    echo -e "[google-cloud-cli]\nname=Google Cloud CLI\nbaseurl=https://packages.cloud.google.com/yum/repos/cloud-sdk-el9-x86_64\nenabled=1\ngpgcheck=1\nrepo_gpgcheck=0\ngpgkey=https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg" > /etc/yum.repos.d/google-cloud-cli.repo && \
+    dnf install -y azure-cli google-cloud-cli kubectl helm pandoc gcc python3-devel python3-pip libsodium-devel && \
     echo -e "[global]\nbreak-system-packages = true" > /etc/pip.conf && \
     mkdir -p /usr/lib/azure-cli-extensions && \
     AZURE_EXTENSION_DIR=/usr/lib/azure-cli-extensions HOME=/tmp az extension add --name k8s-extension && \
