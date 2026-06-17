@@ -87,8 +87,9 @@ RUN mkdir -p /usr/share/applications && \
     echo "Categories=Development;IDE;" \
     ) > /usr/share/applications/antigravity.desktop
 
-# Install DankBar widget (openfortivpn)
+# Install DankBar widget (openfortivpn) and system-wide default settings
 COPY Widgets/ /etc/xdg/quickshell/dms-plugins/openfortivpn/
+COPY settings.json /usr/share/zirconium/zdots/dot_config/DankMaterialShell/settings.json
 
 RUN dnf config-manager addrepo --from-repofile=https://cli.github.com/packages/rpm/gh-cli.repo && \
     dnf config-manager addrepo --from-repofile=https://rpm.releases.hashicorp.com/fedora/hashicorp.repo

@@ -168,49 +168,67 @@ PluginComponent {
     }
 
     horizontalBarPill: Component {
-        Row {
-            spacing: Theme.spacingS
-            anchors.verticalCenter: parent.verticalCenter
+        Rectangle {
+            id: backgroundPill
+            implicitWidth: vpnRow.width + 16
+            implicitHeight: vpnRow.height + 8
+            radius: height / 2
+            color: root.connectionStatus === "connected" ? "#34c759" : "#ff9500"
+            anchors.verticalCenter: parent ? parent.verticalCenter : undefined
 
-            DankIcon {
-                name: "vpn_lock"
-                size: root.iconSize
-                color: root.connectionStatus === "connected" ? Theme.primary :
-                       root.connectionStatus === "connecting" ? Theme.tertiary : Theme.surfaceText
-                anchors.verticalCenter: parent.verticalCenter
-            }
+            Row {
+                id: vpnRow
+                x: 8
+                y: 4
+                spacing: Theme.spacingS
 
-            StyledText {
-                text: root.connectionStatus === "connected" ? "VPN On" :
-                      root.connectionStatus === "connecting" ? "VPN..." : "VPN Off"
-                color: Theme.surfaceText
-                font.pixelSize: Theme.fontSizeSmall
-                font.weight: Font.Medium
-                anchors.verticalCenter: parent.verticalCenter
+                DankIcon {
+                    name: (root.connectionStatus === "connected" || root.connectionStatus === "connecting") ? "vpn_lock" : "public"
+                    size: root.iconSize
+                    color: "#ffffff"
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+
+                StyledText {
+                    text: "VPN"
+                    color: "#ffffff"
+                    font.pixelSize: Theme.fontSizeSmall
+                    font.weight: Font.Medium
+                    anchors.verticalCenter: parent.verticalCenter
+                }
             }
         }
     }
 
     verticalBarPill: Component {
-        Column {
-            spacing: Theme.spacingXS
-            anchors.horizontalCenter: parent.horizontalCenter
+        Rectangle {
+            id: backgroundPillVertical
+            implicitWidth: vpnColumn.width + 8
+            implicitHeight: vpnColumn.height + 16
+            radius: width / 2
+            color: root.connectionStatus === "connected" ? "#34c759" : "#ff9500"
+            anchors.horizontalCenter: parent ? parent.horizontalCenter : undefined
 
-            DankIcon {
-                name: "vpn_lock"
-                size: root.iconSize
-                color: root.connectionStatus === "connected" ? Theme.primary :
-                       root.connectionStatus === "connecting" ? Theme.tertiary : Theme.surfaceText
-                anchors.horizontalCenter: parent.horizontalCenter
-            }
+            Column {
+                id: vpnColumn
+                x: 4
+                y: 8
+                spacing: Theme.spacingXS
 
-            StyledText {
-                text: root.connectionStatus === "connected" ? "ON" :
-                      root.connectionStatus === "connecting" ? "..." : "OFF"
-                color: Theme.surfaceText
-                font.pixelSize: Theme.fontSizeSmall - 1
-                font.weight: Font.Medium
-                anchors.horizontalCenter: parent.horizontalCenter
+                DankIcon {
+                    name: (root.connectionStatus === "connected" || root.connectionStatus === "connecting") ? "vpn_lock" : "public"
+                    size: root.iconSize
+                    color: "#ffffff"
+                    anchors.horizontalCenter: parent.horizontalCenter
+                }
+
+                StyledText {
+                    text: "VPN"
+                    color: "#ffffff"
+                    font.pixelSize: Theme.fontSizeSmall - 1
+                    font.weight: Font.Medium
+                    anchors.horizontalCenter: parent.horizontalCenter
+                }
             }
         }
     }
