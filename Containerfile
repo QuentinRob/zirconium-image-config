@@ -48,6 +48,17 @@ RUN dnf clean all
 RUN usermod -s /usr/bin/fish root
 RUN sed -i 's|^SHELL=.*|SHELL=/usr/bin/fish|' /etc/default/useradd
 
+# Ensure all users are part of the vboxsf group for shared folder mounting
+RUN groupadd -r vboxsf && \
+    getent passwd | cut -d: -f1 | while read -r user; do usermod -aG vboxsf "$user" 2>/dev/null || true; done && \
+    mkdir -p /etc/shadow-maint/useradd-post.d && \
+    ( \
+    echo '#!/bin/sh' && \
+    echo 'getent group vboxsf >/dev/null || groupadd -r vboxsf' && \
+    echo 'usermod -aG vboxsf "$SUBJECT"' \
+    ) > /etc/shadow-maint/useradd-post.d/01-vboxsf && \
+    chmod +x /etc/shadow-maint/useradd-post.d/01-vboxsf
+
 # Install Antigravity
 COPY Antigravity.tar.gz /tmp/
 RUN tar -xzf /tmp/Antigravity.tar.gz -C /usr/lib/ && \
