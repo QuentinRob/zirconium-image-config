@@ -93,6 +93,8 @@ COPY config/settings.json /usr/share/zirconium/zdots/dot_config/DankMaterialShel
 COPY scripts/niri-macos-maximize.py /usr/bin/niri-macos-maximize.py
 RUN chmod +x /usr/bin/niri-macos-maximize.py
 COPY config/local.kdl /usr/share/zirconium/zdots/dot_config/niri/local.kdl
+COPY config/foot/foot.ini /usr/share/zirconium/zdots/dot_config/foot/foot.ini
+
 
 
 
@@ -122,3 +124,12 @@ COPY shell/fish_prompt.fish shell/fish_jj_prompt.fish shell/k8s_resources.fish /
 
 # Install Zellij
 RUN curl -L https://github.com/zellij-org/zellij/releases/latest/download/zellij-x86_64-unknown-linux-musl.tar.gz | tar -xz -C /usr/bin
+
+# Install klog CLI tool
+RUN curl -L -o /tmp/klog.zip https://github.com/jotaen/klog/releases/latest/download/klog-linux.zip && \
+    python3 -c "import zipfile; zipfile.ZipFile('/tmp/klog.zip').extract('klog', '/usr/bin')" && \
+    chmod +x /usr/bin/klog && \
+    rm /tmp/klog.zip
+
+# Install klog Zed extension system-wide for new user profiles
+RUN git clone https://github.com/QuentinRob/klog-zed-extension.git /usr/share/zirconium/zdots/dot_local/share/zed/extensions/installed/klog
