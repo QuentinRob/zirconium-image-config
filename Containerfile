@@ -113,8 +113,10 @@ RUN echo -e "[kubernetes]\nname=Kubernetes\nbaseurl=https://pkgs.k8s.io/core:/st
     mkdir -p /usr/lib/azure-cli-extensions && \
     AZURE_EXTENSION_DIR=/usr/lib/azure-cli-extensions HOME=/tmp az extension add --name k8s-extension && \
     AZURE_EXTENSION_DIR=/usr/lib/azure-cli-extensions HOME=/tmp az extension add --name connectedk8s && \
-    HOME=/tmp az aks install-cli --install-location=/tmp/kubectl --kubelogin-install-location=/usr/bin/kubelogin && \
-    rm -f /tmp/kubectl /etc/pip.conf && \
+    curl -L -o /tmp/kubelogin.zip https://github.com/Azure/kubelogin/releases/download/v0.2.18/kubelogin-linux-amd64.zip && \
+    python3 -c "import zipfile; zipfile.ZipFile('/tmp/kubelogin.zip').extract('bin/linux_amd64/kubelogin', '/tmp')" && \
+    mv /tmp/bin/linux_amd64/kubelogin /usr/bin/kubelogin && \
+    rm -rf /tmp/kubelogin.zip /tmp/bin /etc/pip.conf && \
     dnf remove -y gcc python3-devel python3-pip libsodium-devel && \
     dnf autoremove -y && \
     dnf clean all
