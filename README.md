@@ -64,12 +64,17 @@ This repository contains the `Containerfile` configuration to build a custom, se
 │   ├── plugin.json
 │   ├── VpnSettings.qml
 │   └── VpnWidget.qml
-├── fish_prompt.fish           # Base prompt layout
-├── fish_jj_prompt.fish        # Jujutsu-aware shell prompt functions
-├── k8s_resources.fish         # Kubernetes helper functions for Fish
-├── settings.json              # Custom DankMaterialShell default settings
-├── niri-macos-maximize.py     # macOS-style maximize IPC python helper script
-├── local.kdl                  # Niri keybinding overrides for macOS maximize script
+├── config/                    # Compositor and Desktop environment configurations
+│   ├── settings.json          # Custom DankMaterialShell default settings
+│   └── local.kdl              # Niri keybinding overrides for macOS maximize script
+├── scripts/                   # System automation helper scripts
+│   └── niri-macos-maximize.py # macOS-style maximize IPC python helper script
+├── shell/                     # Fish shell customizations and helper functions
+│   ├── fish_prompt.fish       # Base prompt layout
+│   ├── fish_jj_prompt.fish    # Jujutsu-aware shell prompt functions
+│   └── k8s_resources.fish     # Kubernetes helper functions for Fish
+├── assets/                    # Build-time system assets and packages
+│   └── Antigravity.tar.gz     # Antigravity application archive
 └── README.md                  # This documentation
 ```
 

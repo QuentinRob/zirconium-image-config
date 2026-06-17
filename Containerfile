@@ -60,7 +60,7 @@ RUN (getent group vboxsf >/dev/null || groupadd -r vboxsf) && \
     chmod +x /etc/shadow-maint/useradd-post.d/01-vboxsf
 
 # Install Antigravity
-COPY Antigravity.tar.gz /tmp/
+COPY assets/Antigravity.tar.gz /tmp/
 RUN tar -xzf /tmp/Antigravity.tar.gz -C /usr/lib/ && \
     mv /usr/lib/Antigravity-x64 /usr/lib/Antigravity && \
     chown root:root /usr/lib/Antigravity/chrome-sandbox && \
@@ -89,10 +89,11 @@ RUN mkdir -p /usr/share/applications && \
 
 # Install DankBar widget (openfortivpn) and system-wide default settings
 COPY Widgets/ /etc/xdg/quickshell/dms-plugins/openfortivpn/
-COPY settings.json /usr/share/zirconium/zdots/dot_config/DankMaterialShell/settings.json
-COPY niri-macos-maximize.py /usr/bin/niri-macos-maximize.py
+COPY config/settings.json /usr/share/zirconium/zdots/dot_config/DankMaterialShell/settings.json
+COPY scripts/niri-macos-maximize.py /usr/bin/niri-macos-maximize.py
 RUN chmod +x /usr/bin/niri-macos-maximize.py
-COPY local.kdl /usr/share/zirconium/zdots/dot_config/niri/local.kdl
+COPY config/local.kdl /usr/share/zirconium/zdots/dot_config/niri/local.kdl
+
 
 
 RUN dnf config-manager addrepo --from-repofile=https://cli.github.com/packages/rpm/gh-cli.repo && \
@@ -116,7 +117,7 @@ RUN echo -e "[kubernetes]\nname=Kubernetes\nbaseurl=https://pkgs.k8s.io/core:/st
     dnf clean all
 
 # Copy system-wide fish prompt configuration and helper functions
-COPY fish_prompt.fish fish_jj_prompt.fish k8s_resources.fish /usr/share/fish/vendor_functions.d/
+COPY shell/fish_prompt.fish shell/fish_jj_prompt.fish shell/k8s_resources.fish /usr/share/fish/vendor_functions.d/
 
 # Install Zellij
 RUN curl -L https://github.com/zellij-org/zellij/releases/latest/download/zellij-x86_64-unknown-linux-musl.tar.gz | tar -xz -C /usr/bin
