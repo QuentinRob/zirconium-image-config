@@ -64,7 +64,6 @@ function fish_prompt --description 'Write out the prompt'
     else
         set login_and_path "$color_pwd$pwd_val$normal"
     end
-    set -a segments $login_and_path
 
     # 3. VCS segment (Git/Hg/Jujutsu)
     set -l vcs (fish_vcs_prompt)
@@ -116,17 +115,19 @@ function fish_prompt --description 'Write out the prompt'
         set -a segments (string trim $prompt_status)
     end
 
-    # Join the segments with a stylish grey vertical bar separator
-    set -l color_sep (set_color brblack)
-    set -l color_norm (set_color normal)
-    set -l sep "$color_sep | $color_norm"
-    set -l prompt_line (string join "$sep" $segments)
+    # Print user@path on its own line
+    echo $login_and_path
 
-    # Print prompt details
-    echo -n $prompt_line
+    # Join and print the remaining segments with a stylish grey vertical bar separator
+    if test (count $segments) -gt 0
+        set -l color_sep (set_color brblack)
+        set -l color_norm (set_color normal)
+        set -l sep "$color_sep | $color_norm"
+        set -l prompt_line (string join "$sep" $segments)
+        echo $prompt_line
+    end
     
     # Place the cursor/suffix on a new line
-    echo ""
     echo -n -s $suffix " "
 end
 
