@@ -92,7 +92,7 @@ docker --version
 ```
 
 ### Building the Image
-You will need the `Antigravity` installation package located in the directory root to build:
+You will need the `Antigravity` installation package located in the `assets/` directory to build:
 
 ```bash
 # Build the container image
