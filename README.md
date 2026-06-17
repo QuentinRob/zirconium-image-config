@@ -33,7 +33,7 @@ This repository contains the `Containerfile` configuration to build a custom, se
 - **Audit Tooling**: Comes pre-installed with `lynis`, `openscap-scanner`, and `scap-security-guide` for immediate compliance checks.
 
 ### 🛠️ Developer Ecosystem & AI IDEs
-- **Core Package Toolkit**: `git`, `vim`, `firefox`, `nodejs`/`npm`, `jq`, `curl`, and `pandoc`.
+- **Core Package Toolkit**: `git`, `vim`, `firefox`, `nodejs`/`npm`, `jq`, `curl`, `pandoc`, **Seahorse** (system keyring manager), and **KeePassXC** (KeePass password manager).
 - **Infrastructure & Cloud Platforms**: Fully loaded with `kubectl`, `helm`, `azure-cli`, `kubelogin`, and **Terraform**.
 - **Terminal Workspace & Shells**: Pre-installed **Zellij** terminal multiplexer.
 - **AI-Assisted Coding**:
