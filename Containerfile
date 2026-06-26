@@ -136,3 +136,8 @@ RUN curl -L -o /tmp/klog.zip https://github.com/jotaen/klog/releases/latest/down
 
 # Install klog Zed extension system-wide for new user profiles
 RUN git clone https://github.com/QuentinRob/klog-zed-extension.git /usr/share/zirconium/zdots/dot_local/share/zed/extensions/installed/klog
+
+# Install GCLOUD CLI
+RUN curl -L -o /tmp/gcloud.zip https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-latest-linux-x86_64.zip && \
+    python3 -c "import zipfile; zipfile.ZipFile('/tmp/gcloud.zip').extract('google-cloud-sdk', '/usr/local')" && \
+    rm /tmp/gcloud.zip
