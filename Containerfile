@@ -108,8 +108,8 @@ RUN HOME=/tmp npm install -g --prefix=/usr @openai/codex @zed-industries/codex-a
 
 # Install Kubernetes tools, Azure CLI, Pandoc, and Azure CLI extensions
 RUN echo -e "[kubernetes]\nname=Kubernetes\nbaseurl=https://pkgs.k8s.io/core:/stable:/v1.31/rpm/\nenabled=1\ngpgcheck=1\ngpgkey=https://pkgs.k8s.io/core:/stable:/v1.31/rpm/repodata/repomd.xml.key" > /etc/yum.repos.d/kubernetes.repo && \
-    echo -e "[google-cloud-cli]\nname=Google Cloud CLI\nbaseurl=https://packages.cloud.google.com/yum/repos/cloud-sdk-el9-x86_64\nenabled=1\ngpgcheck=1\nrepo_gpgcheck=0\ngpgkey=https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg" > /etc/yum.repos.d/google-cloud-cli.repo && \
-    dnf install -y azure-cli google-cloud-cli kubectl helm pandoc gcc python3-devel python3-pip libsodium-devel && \
+    echo -e "[google-cloud-cli]\nname=Google Cloud CLI\nbaseurl=https://packages.cloud.google.com/yum/repos/cloud-sdk-el10-x86_64\nenabled=1\ngpgcheck=1\nrepo_gpgcheck=0\ngpgkey=https://packages.cloud.google.com/yum/doc/rpm-package-key-v10.gpg" > /etc/yum.repos.d/google-cloud-sdk.repo && \
+    dnf install -y azure-cli google-cloud-cli kubectl helm pandoc libxcrypt-compat gcc python3-devel python3-pip libsodium-devel && \
     echo -e "[global]\nbreak-system-packages = true" > /etc/pip.conf && \
     mkdir -p /usr/lib/azure-cli-extensions && \
     AZURE_EXTENSION_DIR=/usr/lib/azure-cli-extensions HOME=/tmp az extension add --name k8s-extension && \
@@ -137,7 +137,3 @@ RUN curl -L -o /tmp/klog.zip https://github.com/jotaen/klog/releases/latest/down
 # Install klog Zed extension system-wide for new user profiles
 RUN git clone https://github.com/QuentinRob/klog-zed-extension.git /usr/share/zirconium/zdots/dot_local/share/zed/extensions/installed/klog
 
-# Install GCLOUD CLI
-RUN curl -L -o /tmp/gcloud.zip https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-latest-linux-x86_64.zip && \
-    python3 -c "import zipfile; zipfile.ZipFile('/tmp/gcloud.zip').extract('google-cloud-sdk', '/usr/local')" && \
-    rm /tmp/gcloud.zip
