@@ -140,8 +140,10 @@ RUN curl -L -o /tmp/klog.zip https://github.com/jotaen/klog/releases/latest/down
 RUN git clone https://github.com/QuentinRob/klog-zed-extension.git /usr/share/zirconium/zdots/dot_local/share/zed/extensions/installed/klog
 
 # Install Golang manually
-RUN rm -rf /usr/local/go && \
+RUN mkdir -p /usr/local && \
+    rm -rf /usr/local/go && \
     curl -L https://go.dev/dl/go1.26.4.linux-amd64.tar.gz | tar -C /usr/local -xzf -
+
 
 # Add Go to system-wide PATH for bash/sh and fish
 RUN mkdir -p /etc/profile.d /etc/fish/conf.d && \
