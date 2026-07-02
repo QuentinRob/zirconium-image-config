@@ -35,9 +35,10 @@ RUN awk -F: '($3 < 1000 && $1 != "root") {print $1}' /etc/passwd | \
     done
 
 #Install custom packages
-RUN dnf install -y git vim firefox fish zed golang lynis openscap-scanner scap-security-guide dnf-plugins-core nodejs npm seahorse keepassxc && \
+RUN dnf install -y git vim firefox fish zed lynis openscap-scanner scap-security-guide dnf-plugins-core nodejs npm seahorse keepassxc && \
     dnf copr enable -y aldantanneo/jj-vcs && \
     dnf install -y jj-cli curl openfortivpn jq
+
 
 
 
@@ -137,4 +138,13 @@ RUN curl -L -o /tmp/klog.zip https://github.com/jotaen/klog/releases/latest/down
 
 # Install klog Zed extension system-wide for new user profiles
 RUN git clone https://github.com/QuentinRob/klog-zed-extension.git /usr/share/zirconium/zdots/dot_local/share/zed/extensions/installed/klog
+
+# Install Golang manually
+RUN rm -rf /usr/local/go && \
+    curl -L https://go.dev/dl/go1.26.4.linux-amd64.tar.gz | tar -C /usr/local -xzf -
+
+# Add Go to system-wide PATH for bash/sh and fish
+RUN mkdir -p /etc/profile.d /etc/fish/conf.d && \
+    echo 'export PATH=$PATH:/usr/local/go/bin' > /etc/profile.d/golang.sh && \
+    echo 'fish_add_path /usr/local/go/bin' > /etc/fish/conf.d/golang.fish
 
