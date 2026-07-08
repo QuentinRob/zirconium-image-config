@@ -147,3 +147,7 @@ RUN rm -rf /usr/lib/go && \
 RUN mkdir -p /etc/profile.d /etc/fish/conf.d && \
     echo 'export PATH=$PATH:/usr/lib/go/bin' > /etc/profile.d/golang.sh && \
     echo 'fish_add_path /usr/lib/go/bin' > /etc/fish/conf.d/golang.fish
+
+# Install herdr
+RUN curl -fsSL https://herdr.dev/install.sh | HERDR_INSTALL_DIR=/usr/bin sh
+
