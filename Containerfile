@@ -153,6 +153,7 @@ RUN mkdir -p /etc/profile.d /etc/fish/conf.d && \
 RUN curl -fsSL https://herdr.dev/install.sh | HERDR_INSTALL_DIR=/usr/bin sh
 
 # Install uv system-wide
-RUN curl -LsSf https://astral.sh/uv/install.sh | env UV_NO_MODIFY_PATH=1 UV_INSTALL_DIR="/usr/bin" sh
+RUN curl -LsSf https://astral.sh/uv/install.sh | env HOME=/tmp UV_NO_MODIFY_PATH=1 UV_INSTALL_DIR="/usr/bin" sh
+
 
 
