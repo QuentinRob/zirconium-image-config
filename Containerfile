@@ -35,9 +35,10 @@ RUN awk -F: '($3 < 1000 && $1 != "root") {print $1}' /etc/passwd | \
     done
 
 #Install custom packages
-RUN dnf install -y git vim firefox fish zed chromium-headless lynis openscap-scanner scap-security-guide dnf-plugins-core nodejs npm seahorse keepassxc && \
+RUN dnf install -y git vim firefox fish zed lynis openscap-scanner scap-security-guide dnf-plugins-core nodejs npm seahorse keepassxc && \
     dnf copr enable -y aldantanneo/jj-vcs && \
     dnf install -y jj-cli curl openfortivpn jq
+
 
 
 
@@ -154,6 +155,10 @@ RUN curl -fsSL https://herdr.dev/install.sh | HERDR_INSTALL_DIR=/usr/bin sh
 
 # Install uv system-wide
 RUN curl -LsSf https://astral.sh/uv/install.sh | env HOME=/tmp UV_NO_MODIFY_PATH=1 UV_INSTALL_DIR="/usr/bin" sh
+
+# Install Chromium at the end to optimize build caching
+RUN dnf install -y chromium && dnf clean all
+
 
 
 
