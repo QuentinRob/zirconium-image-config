@@ -349,12 +349,37 @@ PluginComponent {
                     spacing: Theme.spacingS
                     visible: root.logLines.length > 0
 
-                    StyledText {
-                        text: "Connection Log"
-                        font.pixelSize: Theme.fontSizeSmall
-                        font.weight: Font.Bold
-                        color: Theme.surfaceVariantText
+                    Item {
+                        width: parent.width
+                        height: 24
+
+                        StyledText {
+                            text: "Connection Log"
+                            font.pixelSize: Theme.fontSizeSmall
+                            font.weight: Font.Bold
+                            color: Theme.surfaceVariantText
+                            anchors.left: parent.left
+                            anchors.verticalCenter: parent.verticalCenter
+                        }
+
+                        DankIcon {
+                            name: "content_copy"
+                            size: 16
+                            color: Theme.surfaceVariantText
+                            anchors.right: parent.right
+                            anchors.verticalCenter: parent.verticalCenter
+
+                            MouseArea {
+                                anchors.fill: parent
+                                cursorShape: Qt.PointingHandCursor
+                                onClicked: {
+                                    Quickshell.clipboardText = root.logBuffer;
+                                    ToastService.showInfo("VPN Logs copied to clipboard!");
+                                }
+                            }
+                        }
                     }
+
 
                     StyledRect {
                         width: parent.width
