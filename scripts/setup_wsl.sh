@@ -12,7 +12,6 @@ PACKAGES=(
   vim
   firefox
   fish
-  zed
   lynis
   openscap-scanner
   scap-security-guide
