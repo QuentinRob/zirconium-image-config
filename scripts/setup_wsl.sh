@@ -10,7 +10,6 @@ RAW_GITHUB_BASE_URL="https://raw.githubusercontent.com/QuentinRob/zirconium-imag
 PACKAGES=(
   git
   vim
-  firefox
   fish
   lynis
   openscap-scanner
@@ -18,8 +17,6 @@ PACKAGES=(
   dnf-plugins-core
   nodejs
   npm
-  seahorse
-  keepassxc
   jj-cli
   curl
   jq
